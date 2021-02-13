@@ -14,16 +14,25 @@ You can install the package via composer:
 composer require tightenco/tighten-coding-standard
 ```
 
-Then add the standard to your local `.phpcs.xml.dist`:
-
-```xml
-// @todo, I don't actually know how to do this yet :)
-```
+Run `./vendor/bin/phpcs -i` to make sure you see "Tighten" in that list.
 
 ## Usage
 
-```
-// Usage code and examples here
+Add the standard to your local `.phpcs.xml.dist`:
+
+```xml
+<?xml version="1.0"?>
+<ruleset>
+   <file>app</file>
+   <file>config</file>
+   <file>database</file>
+   <file>public</file>
+   <file>resources</file>
+   <file>routes</file>
+   <file>tests</file>
+
+   <rule ref="Tighten"/>
+</ruleset>
 ```
 
 ## Testing
