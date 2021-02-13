@@ -1,6 +1,7 @@
 {
     "name": "tightenco/tighten-coding-standard",
     "description": "A PHP Code_Sniffer configuration for the Tighten coding standard.",
+    "type" : "phpcodesniffer-standard",
     "keywords": [
         "tightenco",
         "tighten-coding-standard",
@@ -17,7 +18,8 @@
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
