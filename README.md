@@ -14,6 +14,12 @@ You can install the package via composer:
 composer require tightenco/tighten-coding-standard
 ```
 
+Then add the standard to your local `.phpcs.xml.dist`:
+
+```xml
+// @todo, I don't actually know how to do this yet :)
+```
+
 ## Usage
 
 ```
