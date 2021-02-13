@@ -1,18 +1,17 @@
-# Package title and description
+# PHP Coding Standard
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/:package_name.svg?style=flat-square)](https://packagist.org/packages/tightenco/:package_name)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tighten/:package_name/run-tests?label=tests)](https://github.com/tighten/:package_name/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tighten-coding-standard.svg?style=flat-square)](https://packagist.org/packages/tightenco/tighten-coding-standard)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tighten/tighten-coding-standard/run-tests?label=tests)](https://github.com/tighten/tighten-coding-standard/actions?query=workflow%3Arun-tests+branch%3Amaster)
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_email``` ```:package_name``` ```:package_description``` ```:package_php_namespace``` with their correct values in [README.md](README.md), [composer.json](composer.json), and all three files under `src/`, then delete this line.
 
-Short description here, and maybe small justification of why it's valuable.
+A PHP CodeSniffer configuration for the Tighten Coding Standard.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require tightenco/:package_name
+composer require tightenco/tighten-coding-standard
 ```
 
 ## Usage
@@ -37,7 +36,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Matt Stauffer](https://github.com/mattstauffer)
 - [All Contributors](../../contributors)
 
 ## License

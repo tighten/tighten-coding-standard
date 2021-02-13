@@ -1,17 +1,17 @@
 {
-    "name": "tightenco/:package_name",
-    "description": ":package_description",
+    "name": "tightenco/tighten-coding-standard",
+    "description": "A PHP Code_Sniffer configuration for the Tighten coding standard.",
     "keywords": [
         "tightenco",
-        ":package_name",
+        "tighten-coding-standard",
         "php"
     ],
-    "homepage": "https://github.com/tighten/:package_name",
+    "homepage": "https://github.com/tighten/tighten-coding-standard",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Matt Stauffer",
+            "email": "matt@tighten.co",
             "homepage": "https://tighten.co",
             "role": "Developer"
         }
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Tighten\\:package_php_namespace\\": "src"
+            "Tighten\\TightenCodingStandard\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tighten\\:package_php_namespace\\Tests\\": "tests"
+            "Tighten\\TightenCodingStandard\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -39,16 +39,6 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Tighten\\:package_php_namespace\\:package_php_namespaceServiceProvider"
-            ],
-            "aliases": {
-                ":package_php_namespace": "Tighten\\:package_php_namespace\\:package_php_namespaceFacade"
-            }
-        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
