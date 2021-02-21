@@ -1,7 +1,7 @@
 # PHP Coding Standard
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tighten-coding-standard.svg?style=flat-square)](https://packagist.org/packages/tightenco/tighten-coding-standard)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tighten/tighten-coding-standard/run-tests?label=tests)](https://github.com/tighten/tighten-coding-standard/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Run tests](https://github.com/tighten/tighten-coding-standard/workflows/Run%20tests/badge.svg?branch=main)](https://github.com/tighten/tighten-coding-standard/actions?query=workflow%3A%22Run+tests%22)
 
 
 A PHP CodeSniffer configuration for the Tighten Coding Standard.
