@@ -34,6 +34,11 @@
         <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 
+    <!-- Disable "Visibility must be declared on method" rule for test files -->
+    <rule ref="Squiz.Scope.MethodScope">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
     <!-- Disable camel caps rule for tests -->
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>*/tests/*</exclude-pattern>
