@@ -51,6 +51,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 
 ## Credits
 
+- [Sara Bine](https://github.com/sbine)
 - [Matt Stauffer](https://github.com/mattstauffer)
 - [All Contributors](../../contributors)
 
