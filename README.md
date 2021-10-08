@@ -35,6 +35,102 @@ Add the standard to your local `.phpcs.xml.dist`:
 </ruleset>
 ```
 
+## Sniffs
+
+This list can be generated using:
+
+```bash
+./vendor/bin/phpcs --standard=Tighten -e
+```
+
+Documentation for a specific sniff can be generated using:
+
+```bash
+./vendor/bin/phpcs --generator=text --sniffs=Generic.Arrays.DisallowLongArraySyntax
+```
+
+### Generic (17 sniffs)
+
+- Generic.Arrays.DisallowLongArraySyntax
+- Generic.ControlStructures.InlineControlStructure
+- Generic.Files.ByteOrderMark
+- Generic.Files.LineEndings
+- Generic.Files.LineLength
+- Generic.Formatting.DisallowMultipleStatements
+- Generic.Formatting.SpaceAfterNot
+- Generic.Functions.FunctionCallArgumentSpacing
+- Generic.NamingConventions.UpperCaseConstantName
+- Generic.PHP.DisallowAlternativePHPTags
+- Generic.PHP.DisallowShortOpenTag
+- Generic.PHP.LowerCaseConstant
+- Generic.PHP.LowerCaseKeyword
+- Generic.PHP.LowerCaseType
+- Generic.WhiteSpace.DisallowTabIndent
+- Generic.WhiteSpace.IncrementDecrementSpacing
+- Generic.WhiteSpace.ScopeIndent
+
+### PEAR (1 sniff)
+
+- PEAR.Functions.ValidDefaultValue
+
+### PSR1 (3 sniffs)
+
+- PSR1.Classes.ClassDeclaration
+- PSR1.Files.SideEffects
+- PSR1.Methods.CamelCapsMethodName
+
+### PSR12 (16 sniffs)
+
+- PSR12.Classes.AnonClassDeclaration
+- PSR12.Classes.ClassInstantiation
+- PSR12.Classes.ClosingBrace
+- PSR12.ControlStructures.BooleanOperatorPlacement
+- PSR12.ControlStructures.ControlStructureSpacing
+- PSR12.Files.DeclareStatement
+- PSR12.Files.FileHeader
+- PSR12.Files.ImportStatement
+- PSR12.Files.OpenTag
+- PSR12.Functions.NullableTypeDeclaration
+- PSR12.Functions.ReturnTypeDeclaration
+- PSR12.Keywords.ShortFormTypeKeywords
+- PSR12.Namespaces.CompoundNamespaceDepth
+- PSR12.Operators.OperatorSpacing
+- PSR12.Properties.ConstantVisibility
+- PSR12.Traits.UseDeclaration
+
+### PSR2 (9 sniffs)
+
+- PSR2.Classes.ClassDeclaration
+- PSR2.Classes.PropertyDeclaration
+- PSR2.ControlStructures.ElseIfDeclaration
+- PSR2.ControlStructures.SwitchDeclaration
+- PSR2.Files.ClosingTag
+- PSR2.Files.EndFileNewline
+- PSR2.Methods.FunctionCallSignature
+- PSR2.Methods.FunctionClosingBrace
+- PSR2.Methods.MethodDeclaration
+
+### Squiz (18 sniffs)
+
+- Squiz.Classes.ClassFileName
+- Squiz.Classes.ValidClassName
+- Squiz.ControlStructures.ControlSignature
+- Squiz.ControlStructures.ForEachLoopDeclaration
+- Squiz.ControlStructures.ForLoopDeclaration
+- Squiz.ControlStructures.LowercaseDeclaration
+- Squiz.Functions.FunctionDeclaration
+- Squiz.Functions.FunctionDeclarationArgumentSpacing
+- Squiz.Functions.LowercaseFunctionKeywords
+- Squiz.Functions.MultiLineFunctionDeclaration
+- Squiz.Scope.MethodScope
+- Squiz.Strings.ConcatenationSpacing
+- Squiz.Strings.DoubleQuoteUsage
+- Squiz.WhiteSpace.CastSpacing
+- Squiz.WhiteSpace.ControlStructureSpacing
+- Squiz.WhiteSpace.ScopeClosingBrace
+- Squiz.WhiteSpace.ScopeKeywordSpacing
+- Squiz.WhiteSpace.SuperfluousWhitespace
+
 ## Testing
 
 ```bash
