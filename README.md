@@ -4,7 +4,7 @@
 [![Run tests](https://github.com/tighten/tighten-coding-standard/workflows/Run%20tests/badge.svg?branch=main)](https://github.com/tighten/tighten-coding-standard/actions?query=workflow%3A%22Run+tests%22)
 
 
-A PHP CodeSniffer configuration for the Tighten Coding Standard.
+This repository contains Tighten Coding Standard configurations for both [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.
 
 ## Installation
 
@@ -14,9 +14,11 @@ You can install the package via composer:
 composer require tightenco/tighten-coding-standard
 ```
 
+## PHP CodeSniffer Installation
+
 Run `./vendor/bin/phpcs -i` to make sure you see "Tighten" in that list.
 
-## Usage
+## PHP CodeSniffer Usage
 
 Add the standard to your local `.phpcs.xml.dist`:
 
@@ -130,6 +132,49 @@ Documentation for a specific sniff can be generated using:
 - Squiz.WhiteSpace.ScopeClosingBrace
 - Squiz.WhiteSpace.ScopeKeywordSpacing
 - Squiz.WhiteSpace.SuperfluousWhitespace
+## Easy Coding Standard Installation
+
+Create a file named `ecs.php` in the root directory of your project.
+
+```php
+<?php
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__.'/vendor/tighten/tighten-coding-standard/config/tighten.php');
+};
+```
+
+After importing the Tighten standard you can customize the rules to suit your project's needs.  As an example, you can change the paths to `/src` using the following:
+
+```php
+$parameters = $containerConfigurator->parameters();
+$parameters->set(Option::PATHS, [__DIR__ . '/src']);
+```
+
+### Running Easy Coding Standard
+
+```bash
+# Check
+vendor/bin/ecs check
+
+# Fix
+vendor/bin/ecs check --fix
+```
+
+Optionally you can add aliases to your `composer.json` file under the `scripts` section.
+
+```json
+    "scripts": {
+        "check": [
+            "vendor/bin/ecs check",
+        ],
+        "fix": [
+            "vendor/bin/ecs check --fix"
+        ],
+    }
+```
 
 ## Testing
 
