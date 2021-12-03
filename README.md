@@ -14,11 +14,13 @@ You can install the package via composer:
 composer require tightenco/tighten-coding-standard
 ```
 
-## PHP CodeSniffer Installation
+## PHP CodeSniffer
+
+### Installation
 
 Run `./vendor/bin/phpcs -i` to make sure you see "Tighten" in that list.
 
-## PHP CodeSniffer Usage
+### Usage
 
 Add the standard to your local `.phpcs.xml.dist`:
 
@@ -37,7 +39,7 @@ Add the standard to your local `.phpcs.xml.dist`:
 </ruleset>
 ```
 
-## Sniffs
+### Sniffs
 
 This list can be generated using:
 
@@ -51,7 +53,7 @@ Documentation for a specific sniff can be generated using:
 ./vendor/bin/phpcs --generator=text --sniffs=Generic.Arrays.DisallowLongArraySyntax
 ```
 
-### Generic (17 sniffs)
+#### Generic (17 sniffs)
 
 - Generic.Arrays.DisallowLongArraySyntax
 - Generic.ControlStructures.InlineControlStructure
@@ -71,17 +73,17 @@ Documentation for a specific sniff can be generated using:
 - Generic.WhiteSpace.IncrementDecrementSpacing
 - Generic.WhiteSpace.ScopeIndent
 
-### PEAR (1 sniff)
+#### PEAR (1 sniff)
 
 - PEAR.Functions.ValidDefaultValue
 
-### PSR1 (3 sniffs)
+#### PSR1 (3 sniffs)
 
 - PSR1.Classes.ClassDeclaration
 - PSR1.Files.SideEffects
 - PSR1.Methods.CamelCapsMethodName
 
-### PSR12 (16 sniffs)
+#### PSR12 (16 sniffs)
 
 - PSR12.Classes.AnonClassDeclaration
 - PSR12.Classes.ClassInstantiation
@@ -100,7 +102,7 @@ Documentation for a specific sniff can be generated using:
 - PSR12.Properties.ConstantVisibility
 - PSR12.Traits.UseDeclaration
 
-### PSR2 (9 sniffs)
+#### PSR2 (9 sniffs)
 
 - PSR2.Classes.ClassDeclaration
 - PSR2.Classes.PropertyDeclaration
@@ -112,7 +114,7 @@ Documentation for a specific sniff can be generated using:
 - PSR2.Methods.FunctionClosingBrace
 - PSR2.Methods.MethodDeclaration
 
-### Squiz (18 sniffs)
+#### Squiz (18 sniffs)
 
 - Squiz.Classes.ClassFileName
 - Squiz.Classes.ValidClassName
@@ -132,7 +134,10 @@ Documentation for a specific sniff can be generated using:
 - Squiz.WhiteSpace.ScopeClosingBrace
 - Squiz.WhiteSpace.ScopeKeywordSpacing
 - Squiz.WhiteSpace.SuperfluousWhitespace
-## Easy Coding Standard Installation
+
+## Easy Coding Standard
+
+### Installation
 
 Create a file named `ecs.php` in the root directory of your project.
 
