@@ -139,7 +139,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'property_protected',
                 'property_private',
                 'construct',
-                'invoke',
+                //'invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',
@@ -150,7 +150,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ]]]
         );
 
-    // No compact()
+    // No compact() and no 'dumps'
     $services->set(ForbiddenFunctionsSniff::class)
-        ->property('forbiddenFunctions', ['compact' => null]);
+        ->property(
+            'forbiddenFunctions',
+            [
+                'compact' => null,
+                'dd' => null,
+                'dump' => null,
+                'ray' => null,
+                'var_dump' => null,
+                'var_export' => null,
+            ]
+        );
 };
