@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff;
 
+use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Files\SideEffectsSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff;
@@ -148,4 +149,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'magic',
             ]]]
         );
+
+    // No compact()
+    $services->set(ForbiddenFunctionsSniff::class)
+        ->property('forbiddenFunctions', ['compact' => null]);
 };
