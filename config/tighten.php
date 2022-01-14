@@ -163,4 +163,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'var_export' => null,
             ]
         );
+
+    // No unused imports
+    $services->set(NoUnusedImportsFixer::class);
 };
