@@ -11,6 +11,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassFileNameSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
+use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
@@ -57,6 +58,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ////////////////////////////////////////////////////////////////////////////////
 
     $parameters = $containerConfigurator->parameters();
+
+    $parameters->set(Option::PARALLEL, true);
 
     $parameters->set(
         Option::PATHS,
@@ -116,6 +119,33 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Expect one space after NOT (!) operator
     $services->set(NotOperatorWithSuccessorSpaceFixer::class);
 
-    // Alphabetical Imports
+    // Alphabetical imports
     $services->set(OrderedImportsFixer::class);
+
+    // Order class elements
+    $services->set(OrderedClassElementsFixer::class)
+        ->call(
+            'configure',
+            [['order' => [
+                'use_trait',
+                'property_public_static',
+                'property_protected_static',
+                'property_private_static',
+                'constant_public',
+                'constant_protected',
+                'constant_private',
+                'property_public',
+                'property_protected',
+                'property_private',
+                'construct',
+                'invoke',
+                'method_public_static',
+                'method_protected_static',
+                'method_private_static',
+                'method_public',
+                'method_protected',
+                'method_private',
+                'magic',
+            ]]]
+        );
 };
