@@ -12,6 +12,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
+use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
@@ -114,4 +115,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Expect one space after NOT (!) operator
     $services->set(NotOperatorWithSuccessorSpaceFixer::class);
+
+    // Alphabetical Imports
+    $services->set(OrderedImportsFixer::class);
 };
