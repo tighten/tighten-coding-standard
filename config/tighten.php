@@ -166,4 +166,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // No unused imports
     $services->set(NoUnusedImportsFixer::class);
+
+    // Trailing comma in multiline arrays
+    $services->set(TrailingCommaInMultilineFixer::class);
 };
