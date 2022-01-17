@@ -160,7 +160,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'dump' => null,
                 'ray' => null,
                 'var_dump' => null,
-                'var_export' => null,
             ]
         );
 
