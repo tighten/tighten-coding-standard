@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff;
-
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Files\SideEffectsSniff;
@@ -12,7 +11,6 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassFileNameSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
-use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
@@ -21,6 +19,7 @@ use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
+use Tighten\CodingStandard\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -124,7 +123,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(OrderedImportsFixer::class);
 
     // Order class elements
-    $services->set(OrderedClassElementsFixer::class)
+    $services->set(CustomOrderedClassElementsFixer::class)
         ->call(
             'configure',
             [['order' => [
@@ -139,7 +138,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'property_protected',
                 'property_private',
                 'construct',
-                //'invoke',
+                'invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',

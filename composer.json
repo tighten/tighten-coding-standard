@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Tighten\\TightenCodingStandard\\": "src"
+            "Tighten\\CodingStandard\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tighten\\TightenCodingStandard\\Tests\\": "tests"
+            "Tighten\\CodingStandard\\Tests\\": "tests"
         }
     },
     "scripts": {
