@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        if (!file_exists(self::TEMP_FOLDER)) {
+        if (! file_exists(self::TEMP_FOLDER)) {
             mkdir(self::TEMP_FOLDER);
         }
     }

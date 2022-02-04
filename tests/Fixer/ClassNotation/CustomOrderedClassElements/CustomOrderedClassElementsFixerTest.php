@@ -12,7 +12,7 @@ class CustomOrderedClassElementsFixerTest extends TestCase
     public function test_fix($input, $expected): void
     {
         $config = __DIR__ . '/.php-cs-fixer.php';
-        $file = self::TEMP_FOLDER . '/' . md5($input);
+        $file = self::TEMP_FOLDER . '/' . md5($input) . '.php';
         file_put_contents($file, $input);
 
         exec("php ./vendor/bin/php-cs-fixer fix {$file} --config={$config}");
@@ -20,10 +20,11 @@ class CustomOrderedClassElementsFixerTest extends TestCase
         $this->assertSame($expected, file_get_contents($file));
     }
 
-    private function provideFixCases(): array
+    public function provideFixCases(): array
     {
         return [
-            [<<<'EOT'
+            [
+<<<'EOT'
 <?php
 
 class Example_Staff
