@@ -17,6 +17,8 @@ use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
+use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
+use PhpCsFixer\Fixer\StringNotation\SimpleToComplexStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -128,27 +130,31 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CustomOrderedClassElementsFixer::class)
         ->call(
             'configure',
-            [['order' => [
-                'use_trait',
-                'property_public_static',
-                'property_protected_static',
-                'property_private_static',
-                'constant_public',
-                'constant_protected',
-                'constant_private',
-                'property_public',
-                'property_protected',
-                'property_private',
-                'construct',
-                'invoke',
-                'method_public_static',
-                'method_protected_static',
-                'method_private_static',
-                'method_public',
-                'method_protected',
-                'method_private',
-                'magic',
-            ]]]
+            [
+                [
+                    'order' => [
+                        'use_trait',
+                        'property_public_static',
+                        'property_protected_static',
+                        'property_private_static',
+                        'constant_public',
+                        'constant_protected',
+                        'constant_private',
+                        'property_public',
+                        'property_protected',
+                        'property_private',
+                        'construct',
+                        'invoke',
+                        'method_public_static',
+                        'method_protected_static',
+                        'method_private_static',
+                        'method_public',
+                        'method_protected',
+                        'method_private',
+                        'magic',
+                    ],
+                ],
+            ]
         );
 
     // No compact() and no 'dumps'
@@ -169,4 +175,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Trailing comma in multiline arrays
     $services->set(TrailingCommaInMultilineFixer::class);
+
+    // No string interpolation without braces
+    $services->set(ExplicitStringVariableFixer::class);
+    $services->set(SimpleToComplexStringVariableFixer::class);
 };
