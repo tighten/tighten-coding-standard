@@ -158,6 +158,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         );
 
     // No compact() and no 'dumps'
+    // Use config() over env()
     $services->set(ForbiddenFunctionsSniff::class)
         ->property(
             'forbiddenFunctions',
@@ -167,6 +168,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'dump' => null,
                 'ray' => null,
                 'var_dump' => null,
+                'env' => 'config',
             ]
         );
 
