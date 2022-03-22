@@ -108,7 +108,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             // Disable Class name should match the file name for migrations
             ClassFileNameSniff::class => ['*/migrations/*'],
             // Disable "Forbidden functions" rule for config files
-            ForbiddenFunctionsSniff::class . '.FoundWithAlternative' => ['/config/*'],
+            'The use of function env() is forbidden; use config() instead' => ['/config/*'],
         ]
     );
 
