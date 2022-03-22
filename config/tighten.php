@@ -107,6 +107,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             CamelCapsMethodNameSniff::class => ['*/tests/*'],
             // Disable Class name should match the file name for migrations
             ClassFileNameSniff::class => ['*/migrations/*'],
+            // Disable "Forbidden functions" rule for config files
+            ForbiddenFunctionsSniff::class . '.FoundWithAlternative' => ['/config/*'],
         ]
     );
 
