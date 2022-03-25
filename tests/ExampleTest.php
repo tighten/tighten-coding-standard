@@ -2,7 +2,7 @@
 
 namespace Tighten\CodingStandard\Tests;
 
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
