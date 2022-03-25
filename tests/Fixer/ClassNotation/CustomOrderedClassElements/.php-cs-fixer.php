@@ -28,4 +28,5 @@ return (new PhpCsFixer\Config())
                 'magic',
             ],
         ],
-    ]);
+    ])
+    ->setUsingCache(false);
