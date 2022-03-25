@@ -20,6 +20,7 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
+
         array_map('unlink', array_filter((array) glob(self::TEMP_FOLDER . '/*')));
         rmdir(self::TEMP_FOLDER);
     }
