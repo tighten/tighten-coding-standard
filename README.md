@@ -41,7 +41,7 @@ Add the standard to your local `.phpcs.xml.dist`:
 
 ### Sniffs
 
-This list can be generated using:
+A list of sniffs included in this standard can be generated using:
 
 ```bash
 ./vendor/bin/phpcs --standard=Tighten -e
@@ -53,93 +53,13 @@ Documentation for a specific sniff can be generated using:
 ./vendor/bin/phpcs --generator=text --sniffs=Generic.Arrays.DisallowLongArraySyntax
 ```
 
-#### Generic (17 sniffs)
-
-- Generic.Arrays.DisallowLongArraySyntax
-- Generic.ControlStructures.InlineControlStructure
-- Generic.Files.ByteOrderMark
-- Generic.Files.LineEndings
-- Generic.Files.LineLength
-- Generic.Formatting.DisallowMultipleStatements
-- Generic.Formatting.SpaceAfterNot
-- Generic.Functions.FunctionCallArgumentSpacing
-- Generic.NamingConventions.UpperCaseConstantName
-- Generic.PHP.DisallowAlternativePHPTags
-- Generic.PHP.DisallowShortOpenTag
-- Generic.PHP.LowerCaseConstant
-- Generic.PHP.LowerCaseKeyword
-- Generic.PHP.LowerCaseType
-- Generic.WhiteSpace.DisallowTabIndent
-- Generic.WhiteSpace.IncrementDecrementSpacing
-- Generic.WhiteSpace.ScopeIndent
-
-#### PEAR (1 sniff)
-
-- PEAR.Functions.ValidDefaultValue
-
-#### PSR1 (3 sniffs)
-
-- PSR1.Classes.ClassDeclaration
-- PSR1.Files.SideEffects
-- PSR1.Methods.CamelCapsMethodName
-
-#### PSR12 (16 sniffs)
-
-- PSR12.Classes.AnonClassDeclaration
-- PSR12.Classes.ClassInstantiation
-- PSR12.Classes.ClosingBrace
-- PSR12.ControlStructures.BooleanOperatorPlacement
-- PSR12.ControlStructures.ControlStructureSpacing
-- PSR12.Files.DeclareStatement
-- PSR12.Files.FileHeader
-- PSR12.Files.ImportStatement
-- PSR12.Files.OpenTag
-- PSR12.Functions.NullableTypeDeclaration
-- PSR12.Functions.ReturnTypeDeclaration
-- PSR12.Keywords.ShortFormTypeKeywords
-- PSR12.Namespaces.CompoundNamespaceDepth
-- PSR12.Operators.OperatorSpacing
-- PSR12.Properties.ConstantVisibility
-- PSR12.Traits.UseDeclaration
-
-#### PSR2 (9 sniffs)
-
-- PSR2.Classes.ClassDeclaration
-- PSR2.Classes.PropertyDeclaration
-- PSR2.ControlStructures.ElseIfDeclaration
-- PSR2.ControlStructures.SwitchDeclaration
-- PSR2.Files.ClosingTag
-- PSR2.Files.EndFileNewline
-- PSR2.Methods.FunctionCallSignature
-- PSR2.Methods.FunctionClosingBrace
-- PSR2.Methods.MethodDeclaration
-
-#### Squiz (18 sniffs)
-
-- Squiz.Classes.ClassFileName
-- Squiz.Classes.ValidClassName
-- Squiz.ControlStructures.ControlSignature
-- Squiz.ControlStructures.ForEachLoopDeclaration
-- Squiz.ControlStructures.ForLoopDeclaration
-- Squiz.ControlStructures.LowercaseDeclaration
-- Squiz.Functions.FunctionDeclaration
-- Squiz.Functions.FunctionDeclarationArgumentSpacing
-- Squiz.Functions.LowercaseFunctionKeywords
-- Squiz.Functions.MultiLineFunctionDeclaration
-- Squiz.Scope.MethodScope
-- Squiz.Strings.ConcatenationSpacing
-- Squiz.Strings.DoubleQuoteUsage
-- Squiz.WhiteSpace.CastSpacing
-- Squiz.WhiteSpace.ControlStructureSpacing
-- Squiz.WhiteSpace.ScopeClosingBrace
-- Squiz.WhiteSpace.ScopeKeywordSpacing
-- Squiz.WhiteSpace.SuperfluousWhitespace
-
 ## Easy Coding Standard
+
+ [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.
 
 ### Installation
 
-Create a file named `ecs.php` in the root directory of your project.
+Create a file named `ecs.php` in the root directory of your project with the following:
 
 ```php
 <?php
@@ -151,11 +71,44 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
+### Customizations
+
 After importing the Tighten standard you can customize the rules to suit your project's needs.  As an example, you can change the paths to `/src` using the following:
 
 ```php
-$parameters = $containerConfigurator->parameters();
-$parameters->set(Option::PATHS, [__DIR__ . '/src']);
+<?php
+
+use PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff;
+use PhpCsFixer\Fixer\Basic\OctalNotationFixer;
+use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\ValueObject\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
+
+    // Customizations start
+    $services = $containerConfigurator->services();
+    $parameters = $containerConfigurator->parameters();
+
+    // Update the paths to /srs
+    $parameters->set(Option::PATHS, [__DIR__ . '/src']);
+
+    // This overrides any Tighten settings so make sure you copy
+    // over any you would like to keep
+    $parameters->set(
+        Option::SKIP,
+        [
+            // Disable converting double quotes to single quotes
+            SingleQuoteFixer::class,
+            // Disable camel caps rule in custom folder
+            CamelCapsMethodNameSniff::class => ['*/custom/*'],
+        ]
+    );
+
+    // Add additional fixer or sniff
+    $services->set(OctalNotationFixer::class);
+};
 ```
 
 ### Running Easy Coding Standard
@@ -173,7 +126,7 @@ Optionally you can add aliases to your `composer.json` file under the `scripts` 
 ```json
     "scripts": {
         "check": [
-            "vendor/bin/ecs check",
+            "vendor/bin/ecs check"
         ],
         "fix": [
             "vendor/bin/ecs check --fix"
