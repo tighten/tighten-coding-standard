@@ -24,7 +24,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 use Tighten\CodingStandard\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
-use Tighten\CodingStandard\Fixer\Phpdoc\NoInlineVarDocFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -184,7 +183,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // No string interpolation without braces
     $services->set(ExplicitStringVariableFixer::class);
     $services->set(SimpleToComplexStringVariableFixer::class);
-
-    // No inline variables
-    $services->set(NoInlineVarDocFixer::class);
 };
