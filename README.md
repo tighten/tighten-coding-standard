@@ -71,6 +71,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
+Or you can choose the Laravel specific standard:
+
+```php
+<?php
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/laravel.php');
+};
+```
+
 ### Customizations
 
 After importing the Tighten standard you can customize the rules to suit your project's needs.  As an example, you can change the paths to `/src` using the following:

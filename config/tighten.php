@@ -61,56 +61,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Config
     ////////////////////////////////////////////////////////////////////////////////
 
+    $defaultParameters = include __DIR__ . '/parameters.php';
+
     $parameters = $containerConfigurator->parameters();
 
     $parameters->set(Option::PARALLEL, true);
-
-    $parameters->set(
-        Option::PATHS,
-        [
-            './app',
-            './config',
-            './database',
-            './public',
-            './resources',
-            './routes',
-            './tests',
-        ]
-    );
-
-    // Ignore normal Laravel files and folders
-    $parameters->set(
-        Option::SKIP,
-        [
-            '/*/cache/*',
-            '*/*.blade.php',
-            '*/autoload.php',
-            '*/storage/*',
-            '*/docs/*',
-            '*/vendor/*',
-            '*/migrations/*',
-        ]
-    );
 
     ////////////////////////////////////////////////////////////////////////////////
     // Tighten preferences
     ////////////////////////////////////////////////////////////////////////////////
 
-    $parameters->set(
-        Option::SKIP,
-        [
-            // Disable missing namespace rule for tests and database files
-            ClassDeclarationSniff::class => ['*/database/*', '*/tests/*'],
-            // Disable "Visibility must be declared on method" rule for test files
-            VisibilityRequiredFixer::class => ['*/tests/*'],
-            // Disable camel caps rule for tests
-            CamelCapsMethodNameSniff::class => ['*/tests/*'],
-            // Disable Class name should match the file name for migrations
-            ClassFileNameSniff::class => ['*/migrations/*'],
-            // Disable "Forbidden functions" rule for config files
-            'The use of function env() is forbidden; use config() instead' => ['/config/*'],
-        ]
-    );
+    $parameters->set(Option::PATHS, $defaultParameters[Option::PATHS]);
+
+    $parameters->set(Option::SKIP, $defaultParameters[Option::SKIP]);
 
     // Force [] short array syntax
     $services->set(ArraySyntaxFixer::class)
