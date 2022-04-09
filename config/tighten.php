@@ -61,7 +61,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Config
     ////////////////////////////////////////////////////////////////////////////////
 
-    $defaultParameters = include __DIR__ . '/parameters.php';
+    $defaultOptions = include __DIR__ . '/options.php';
 
     $parameters = $containerConfigurator->parameters();
 
@@ -71,9 +71,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Tighten preferences
     ////////////////////////////////////////////////////////////////////////////////
 
-    $parameters->set(Option::PATHS, $defaultParameters[Option::PATHS]);
+    $parameters->set(Option::PATHS, $defaultOptions[Option::PATHS]);
 
-    $parameters->set(Option::SKIP, $defaultParameters[Option::SKIP]);
+    $parameters->set(Option::SKIP, $defaultOptions[Option::SKIP]);
 
     // Force [] short array syntax
     $services->set(ArraySyntaxFixer::class)

@@ -11,17 +11,17 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/tighten.php');
 
-    $defaultParameters = include __DIR__ . '/parameters.php';
+    $defaultOptions = include __DIR__ . '/options.php';
 
     $services = $containerConfigurator->services();
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PATHS, $defaultParameters[Option::PATHS]);
+    $parameters->set(Option::PATHS, $defaultOptions[Option::PATHS]);
 
     $parameters->set(
         Option::SKIP,
         array_merge(
-            $defaultParameters[Option::SKIP],
+            $defaultOptions[Option::SKIP],
             [
                 // Laravel preferences: allow unused imports
                 NoUnusedImportsFixer::class,

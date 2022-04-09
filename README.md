@@ -59,7 +59,7 @@ Documentation for a specific sniff can be generated using:
 
 ### Installation
 
-Create a file named `ecs.php` in the root directory of your project with the following:
+Create a file named `tcs.php` in the root directory of your project with the following:
 
 ```php
 <?php
@@ -83,9 +83,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
-### Customizations
+### Configuration
 
-After importing the Tighten standard you can customize the rules to suit your project's needs.  As an example, you can change the paths to `/src` using the following:
+After importing the Tighten or Laravel standard you can customize the rules to suit your project's needs.
+
+If you need to make changes to any options you can alter or override the defaults. First you include the defaults found in the `options.php` configuration file, modify as needed, then set `parameters` and `services`.
 
 ```php
 <?php
@@ -99,15 +101,22 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
 
-    // Customizations start
+    // Include the defaults
+    $defaultOptions = include __DIR__ . '/vendor/tightenco/tighten-coding-standard/config/options.php';
+
     $services = $containerConfigurator->services();
     $parameters = $containerConfigurator->parameters();
 
-    // Update the paths to /srs
-    $parameters->set(Option::PATHS, [__DIR__ . '/src']);
+    // Add an additional path
+    $parameters->set(
+        Option::PATHS,
+        array_merge(
+            $defaultOptions[Option::PATHS],
+            [__DIR__ . '/src']
+        )
+    );
 
-    // This overrides any Tighten settings so make sure you copy
-    // over any you would like to keep
+    // Add additional skip options
     $parameters->set(
         Option::SKIP,
         [
@@ -127,23 +136,32 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 ```bash
 # Check
-vendor/bin/ecs check
+vendor/bin/ecs check --config tcs.php
 
 # Fix
-vendor/bin/ecs check --fix
+vendor/bin/ecs check --fix --config tcs.php
 ```
 
-Optionally you can add aliases to your `composer.json` file under the `scripts` section.
+Optionally you can add these aliases to your `composer.json` file under the `scripts` section.
 
 ```json
     "scripts": {
+        ...
         "check": [
-            "vendor/bin/ecs check"
+            "vendor/bin/ecs check --config tcs.php"
         ],
         "fix": [
-            "vendor/bin/ecs check --fix"
+            "vendor/bin/ecs check --fix --config tcs.php"
         ],
     }
+```
+
+```bash
+# Check
+composer check
+
+# Fix
+composer fix
 ```
 
 ## Testing
