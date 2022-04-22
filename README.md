@@ -4,7 +4,7 @@
 [![Run tests](https://github.com/tighten/tighten-coding-standard/workflows/Run%20tests/badge.svg?branch=main)](https://github.com/tighten/tighten-coding-standard/actions?query=workflow%3A%22Run+tests%22)
 
 
-This repository contains Tighten Coding Standard configurations for both [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.
+This repository contains Tighten Coding Standard configurations for [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.
 
 ## Installation
 
@@ -13,51 +13,6 @@ You can install the package via composer:
 ```bash
 composer require tightenco/tighten-coding-standard
 ```
-
-## PHP CodeSniffer
-
-### Installation
-
-Run `./vendor/bin/phpcs -i` to make sure you see "Tighten" in that list.
-
-### Usage
-
-Add the standard to your local `.phpcs.xml.dist`:
-
-```xml
-<?xml version="1.0"?>
-<ruleset>
-   <file>app</file>
-   <file>config</file>
-   <file>database</file>
-   <file>public</file>
-   <file>resources</file>
-   <file>routes</file>
-   <file>tests</file>
-
-   <rule ref="Tighten"/>
-</ruleset>
-```
-
-### Sniffs
-
-A list of sniffs included in this standard can be generated using:
-
-```bash
-./vendor/bin/phpcs --standard=Tighten -e
-```
-
-Documentation for a specific sniff can be generated using:
-
-```bash
-./vendor/bin/phpcs --generator=text --sniffs=Generic.Arrays.DisallowLongArraySyntax
-```
-
-## Easy Coding Standard
-
- [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.
-
-### Installation
 
 Create a file named `tcs.php` in the root directory of your project with the following:
 
@@ -83,7 +38,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
-### Configuration
+## Configuration
 
 After importing the Tighten or Laravel standard you can customize the rules to suit your project's needs.
 
@@ -132,7 +87,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
-### Running Easy Coding Standard
+## Running Easy Coding Standard
 
 ```bash
 # Check
