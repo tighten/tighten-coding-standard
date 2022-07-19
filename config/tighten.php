@@ -11,6 +11,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassFileNameSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
+use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
@@ -19,130 +20,114 @@ use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SimpleToComplexStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-use Tighten\CodingStandard\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->parallel();
 
     ////////////////////////////////////////////////////////////////////////////////
     // PSR-1
     ////////////////////////////////////////////////////////////////////////////////
 
     // 2.1. PHP Tags
-    $services->set(FullOpeningTagFixer::class);
+    $ecsConfig->rule(FullOpeningTagFixer::class);
 
     // 2.2. Character Encoding
-    $services->set(EncodingFixer::class);
+    $ecsConfig->rule(EncodingFixer::class);
 
     // 2.3. Side Effects
-    $services->set(SideEffectsSniff::class);
+    $ecsConfig->rule(SideEffectsSniff::class);
 
     // 3. Namespace and Class Names
-    $services->set(ValidClassNameSniff::class);
-    $services->set(ClassDeclarationSniff::class);
+    $ecsConfig->rule(ValidClassNameSniff::class);
+    $ecsConfig->rule(ClassDeclarationSniff::class);
 
     // 4.1. Constants
-    $services->set(UpperCaseConstantNameSniff::class);
+    $ecsConfig->rule(UpperCaseConstantNameSniff::class);
 
     // 4.3. Methods
-    $services->set(CamelCapsMethodNameSniff::class);
+    $ecsConfig->rule(CamelCapsMethodNameSniff::class);
 
     ////////////////////////////////////////////////////////////////////////////////
     // PSR-12
     ////////////////////////////////////////////////////////////////////////////////
 
-    $containerConfigurator->import(SetList::PSR_12);
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Config
-    ////////////////////////////////////////////////////////////////////////////////
-
-    $defaultOptions = include __DIR__ . '/options.php';
-
-    $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::PARALLEL, true);
+    $ecsConfig->sets([SetList::PSR_12]);
 
     ////////////////////////////////////////////////////////////////////////////////
     // Tighten preferences
     ////////////////////////////////////////////////////////////////////////////////
 
-    $parameters->set(Option::PATHS, $defaultOptions[Option::PATHS]);
+    $defaultOptions = include __DIR__ . '/options.php';
 
-    $parameters->set(Option::SKIP, $defaultOptions[Option::SKIP]);
+    $ecsConfig->paths($defaultOptions['paths']);
+    $ecsConfig->skip($defaultOptions['skip']);
 
     // Force [] short array syntax
-    $services->set(ArraySyntaxFixer::class)
-        ->call('configure', [['syntax' => 'short']]);
+    $ecsConfig->rule(ArraySyntaxFixer::class, ['syntax' => 'short']);
 
     // Convert double quotes to single quotes for simple strings
-    $services->set(SingleQuoteFixer::class);
+    $ecsConfig->rule(SingleQuoteFixer::class);
 
     // Class name should match the file name
-    $services->set(ClassFileNameSniff::class);
+    $ecsConfig->rule(ClassFileNameSniff::class);
 
     // Expect one space after NOT (!) operator
-    $services->set(NotOperatorWithSuccessorSpaceFixer::class);
+    $ecsConfig->rule(NotOperatorWithSuccessorSpaceFixer::class);
 
     // Alphabetical imports
-    $services->set(OrderedImportsFixer::class);
+    $ecsConfig->rule(OrderedImportsFixer::class);
 
     // Order class elements
-    $services->set(CustomOrderedClassElementsFixer::class)
-        ->call(
-            'configure',
-            [
-                [
-                    'order' => [
-                        'use_trait',
-                        'property_public_static',
-                        'property_protected_static',
-                        'property_private_static',
-                        'constant_public',
-                        'constant_protected',
-                        'constant_private',
-                        'property_public',
-                        'property_protected',
-                        'property_private',
-                        'construct',
-                        'invoke',
-                        'method_public_static',
-                        'method_protected_static',
-                        'method_private_static',
-                        'method_public',
-                        'method_protected',
-                        'method_private',
-                        'magic',
-                    ],
-                ],
-            ]
-        );
+    $ecsConfig->ruleWithConfiguration(
+        OrderedClassElementsFixer::class,
+        [
+            'order' => [
+                'use_trait',
+                'property_public_static',
+                'property_protected_static',
+                'property_private_static',
+                'constant_public',
+                'constant_protected',
+                'constant_private',
+                'property_public',
+                'property_protected',
+                'property_private',
+                'construct',
+                'method:__invoke',
+                'method_public_static',
+                'method_protected_static',
+                'method_private_static',
+                'method_public',
+                'method_protected',
+                'method_private',
+                'magic',
+            ],
+        ]
+    );
 
     // No compact() and no 'dumps'
     // Use config() over env()
-    $services->set(ForbiddenFunctionsSniff::class)
-        ->property(
-            'forbiddenFunctions',
-            [
-                'compact' => null,
-                'dd' => null,
-                'dump' => null,
-                'ray' => null,
-                'var_dump' => null,
-                'env' => 'config',
-            ]
-        );
+    $ecsConfig->ruleWithConfiguration(
+        ForbiddenFunctionsSniff::class,
+        [
+            'compact' => null,
+            'dd' => null,
+            'dump' => null,
+            'ray' => null,
+            'var_dump' => null,
+            'env' => 'config',
+        ]
+    );
 
     // No unused imports
-    $services->set(NoUnusedImportsFixer::class);
+    $ecsConfig->rule(NoUnusedImportsFixer::class);
 
     // Trailing comma in multiline arrays
-    $services->set(TrailingCommaInMultilineFixer::class);
+    $ecsConfig->rule(TrailingCommaInMultilineFixer::class);
 
     // No string interpolation without braces
-    $services->set(ExplicitStringVariableFixer::class);
-    $services->set(SimpleToComplexStringVariableFixer::class);
+    $ecsConfig->rule(ExplicitStringVariableFixer::class);
+    $ecsConfig->rule(SimpleToComplexStringVariableFixer::class);
 };

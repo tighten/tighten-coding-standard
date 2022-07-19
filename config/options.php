@@ -4,10 +4,9 @@ use PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ClassFileNameSniff;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
-use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return [
-    Option::PATHS => [
+    'paths' => [
         './app',
         './config',
         './database',
@@ -16,7 +15,7 @@ return [
         './routes',
         './tests',
     ],
-    Option::SKIP => [
+    'skip' => [
         '/*/cache/*',
         '*/*.blade.php',
         '*/autoload.php',
