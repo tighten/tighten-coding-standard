@@ -95,7 +95,6 @@ return static function (ECSConfig $ecsConfig): void {
                 'property_protected',
                 'property_private',
                 'construct',
-                'method:__invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',
@@ -112,12 +111,14 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->ruleWithConfiguration(
         ForbiddenFunctionsSniff::class,
         [
-            'compact' => null,
-            'dd' => null,
-            'dump' => null,
-            'ray' => null,
-            'var_dump' => null,
-            'env' => 'config',
+            'forbiddenFunctions' => [
+                'compact' => null,
+                'dd' => null,
+                'dump' => null,
+                'ray' => null,
+                'var_dump' => null,
+                'env' => 'config',
+            ],
         ]
     );
 
