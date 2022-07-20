@@ -22,6 +22,7 @@ use PhpCsFixer\Fixer\StringNotation\SimpleToComplexStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
+use Tighten\CodingStandard\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->parallel();
@@ -81,7 +82,7 @@ return static function (ECSConfig $ecsConfig): void {
 
     // Order class elements
     $ecsConfig->ruleWithConfiguration(
-        OrderedClassElementsFixer::class,
+        CustomOrderedClassElementsFixer::class,
         [
             'order' => [
                 'use_trait',
@@ -95,6 +96,7 @@ return static function (ECSConfig $ecsConfig): void {
                 'property_protected',
                 'property_private',
                 'construct',
+                'invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',
