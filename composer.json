@@ -1,5 +1,5 @@
 {
-    "name": "tighten/tighten-coding-standard",
+    "name": "tightenco/tighten-coding-standard",
     "description": "A PHP Code_Sniffer configuration for the Tighten coding standard.",
     "type" : "phpcodesniffer-standard",
     "keywords": [
