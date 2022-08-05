@@ -19,10 +19,10 @@ Create a file named `tcs.php` in the root directory of your project with the fol
 ```php
 <?php
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
 };
 ```
 
@@ -31,10 +31,10 @@ Or you can choose the Laravel specific standard:
 ```php
 <?php
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/laravel.php');
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/laravel.php');
 };
 ```
 
@@ -49,41 +49,40 @@ If you need to make changes to any options you can alter or override the default
 
 use PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff;
 use PhpCsFixer\Fixer\Basic\OctalNotationFixer;
+use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->import(__DIR__ . '/vendor/tightenco/tighten-coding-standard/config/tighten.php');
 
     // Include the defaults
     $defaultOptions = include __DIR__ . '/vendor/tightenco/tighten-coding-standard/config/options.php';
 
-    $services = $containerConfigurator->services();
-    $parameters = $containerConfigurator->parameters();
-
     // Add an additional path
-    $parameters->set(
-        Option::PATHS,
-        array_merge(
-            $defaultOptions[Option::PATHS],
-            [__DIR__ . '/src']
-        )
-    );
+    $ecsConfig->paths(array_merge(
+        $defaultOptions['paths'],
+        [__DIR__ . '/docs']
+    ));
 
     // Add additional skip options
-    $parameters->set(
-        Option::SKIP,
+    $ecsConfig->skip(array_merge(
+        $defaultOptions['skip'],
         [
             // Disable converting double quotes to single quotes
             SingleQuoteFixer::class,
             // Disable camel caps rule in custom folder
-            CamelCapsMethodNameSniff::class => ['*/custom/*'],
+            CamelCapsMethodNameSniff::class => ['*/tests/*', '*/custom/*'],
         ]
-    );
+    ));
 
     // Add additional fixer or sniff
-    $services->set(OctalNotationFixer::class);
+    $ecsConfig->rule(OctalNotationFixer::class);
+
+    // Add additional fixer or sniff with configuration
+    $ecsConfig->ruleWithConfiguration(TrailingCommaInMultilineFixer::class, [
+        'elements' => ['arrays', 'arguments', 'parameters', 'match'],
+    ]);
 };
 ```
 
