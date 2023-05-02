@@ -1,3 +1,5 @@
+>**Warning** Tighten Coding Standard has been archived.  Please use [Duster](https://github.com/tighten/duster) instead.
+
 # PHP Coding Standard
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/tighten-coding-standard.svg?style=flat-square)](https://packagist.org/packages/tightenco/tighten-coding-standard)
