@@ -1,4 +1,4 @@
->**Warning** Tighten Coding Standard has been archived.  Please use [Duster](https://github.com/tighten/duster) instead.
+>**Warning** **Tighten Coding Standar** has been archived.  Please use **[Duster](https://github.com/tighten/duster)** instead.
 
 # PHP Coding Standard
 
